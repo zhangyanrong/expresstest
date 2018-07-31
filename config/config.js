@@ -3,3 +3,7 @@ exports.users = {
     "lisi": "password2",
     "wangwu": "password3",
 };
+
+exports.cookieSign = {
+    'sign':'123456'
+};
