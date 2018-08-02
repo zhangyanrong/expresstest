@@ -6,6 +6,7 @@ var config = require('./config/config');
 var logger = require('morgan');
 var app = express();
 var bodyParser = require('body-parser');
+var cookieSession = require('cookie-session');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -16,6 +17,7 @@ app.use(express.urlencoded({
     extended: false
 }));
 app.use(cookieParser(config.cookieSign.sign));
+app.use(cookieSession(config.sessionKeys));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
