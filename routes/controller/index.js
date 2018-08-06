@@ -32,7 +32,7 @@ router.post('/uploadfile', function (req, res) {
     var multerData = req.files[0];
     var newfilename = multerData.path + pathlib.parse(multerData.originalname).ext;
 
-    fs.rename(multerData[0].path, newfilename, function (err) {
+    fs.rename(multerData.path, newfilename, function (err) {
         if (err) {
             res.send('error');
         } else {
