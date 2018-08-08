@@ -13,3 +13,7 @@ exports.sessionKeys = {
     keys: ['aaa', 'bbb', 'ccc'],
     maxAge: 24 * 3600 * 1000//session过期时间(一天)
 };
+
+exports.configPath = {
+    uploadPath: './public/upload/'
+};

@@ -34,12 +34,12 @@ router.post('/uploadfile', function (req, res) {
 
     fs.rename(multerData.path, newfilename, function (err) {
         if (err) {
-            res.send('error');
-        } else {
-            res.send('上传成功');
+            res.send('上传失败');
+            res.end();
+        } else {//上传成功
+            return res.redirect('/');
         }
     });
-    res.end();
 });
 
 module.exports = router;

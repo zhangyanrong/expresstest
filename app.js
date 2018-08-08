@@ -8,11 +8,13 @@ const app = express();
 const bodyParser = require('body-parser');
 const cookieSession = require('cookie-session');
 const multer = require('multer');
-const objMulter = multer({dest:'./public/upload/'});
+const cons = require('consolidate');
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.engine('html', cons.ejs);//哪种模版引擎
+app.set('view engine', 'html');//输出什么东西(默认的扩展名)
+app.set('views', path.join(__dirname, 'views'));//视图文件位置
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({
@@ -22,7 +24,7 @@ app.use(cookieParser(config.cookieSign.sign));
 app.use(cookieSession(config.sessionKeys));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use(objMulter.any());
+app.use(multer({dest: config.configPath.uploadPath}).any());
 app.use(express.static(path.join(__dirname, 'public')));
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
