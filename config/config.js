@@ -17,3 +17,11 @@ exports.sessionKeys = {
 exports.configPath = {
     uploadPath: './public/upload/'
 };
+
+exports.mysqlConf = {
+    host: 'localhost',
+    user: 'root',
+    password: 'root',
+    database: 'music'
+    // useConnectionPooling: true
+};

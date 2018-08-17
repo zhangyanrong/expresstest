@@ -3,7 +3,18 @@ const router = express.Router();
 const pathlib = require('path');
 const fs = require('fs');
 
+var conn = require('../../model/db');
+var connection = conn.getConnection();
+
 router.get('/', function (req, res) {
+    connection.connect();
+    connection.query('select * from teacher_label limit 1', function(err, datas) {
+        if(err){
+            console.log('',err.message);
+            return;
+        }
+        console.log(datas);
+    });
     res.render('index/index', {title: '标题'});
 });
 
@@ -28,7 +39,7 @@ router.get('/usecookie', function (req, res) {
     res.end(name.name + '-----' + signname.name2);
 });
 
-router.post('/uploadfile', function (req, res) {
+router.post('/uploadfile', function (req, res) {//上传文件
     var multerData = req.files[0];
     var newfilename = multerData.path + pathlib.parse(multerData.originalname).ext;
 
