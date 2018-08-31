@@ -1,6 +1,7 @@
 const config = require('../config/config');
 const mysql = require('mysql');
-function connectionName () {
-    return mysql.createConnection(config.mysqlConf);
+exports.getConnection = function() {
+    var res = mysql.createConnection(config.mysqlConf);
+    res.connect();
+    return res;
 };
-exports.getConnection = connectionName;

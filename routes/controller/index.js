@@ -7,15 +7,13 @@ var conn = require('../../model/db');
 var connection = conn.getConnection();
 
 router.get('/', function (req, res) {
-    connection.connect();
-    connection.query('select * from teacher_label limit 1', function(err, datas) {
+    connection.query('select * from teacher_label limit 5', (err, datas)=> {
         if(err){
-            console.log('',err.message);
-            return;
+            res.status(500).send();
         }
-        console.log(datas);
+        res.render('index/index', {title: '标题', datas: datas});
     });
-    res.render('index/index', {title: '标题'});
+    return;
 });
 
 router.get('/delcookie', function (req, res) {//删除cookie

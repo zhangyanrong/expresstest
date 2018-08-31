@@ -12,7 +12,7 @@ const cons = require('consolidate');
 
 // view engine setup
 app.engine('html', cons.ejs);//哪种模版引擎
-app.set('view engine', 'html');//输出什么东西(默认的扩展名)
+app.set('view engine', 'ejs');//输出什么东西(默认的扩展名)
 app.set('views', path.join(__dirname, 'views'));//视图文件位置
 
 app.use(logger('dev'));
