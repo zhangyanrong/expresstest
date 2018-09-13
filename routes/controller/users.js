@@ -1,12 +1,10 @@
 const express = require('express');
 const router = express.Router();
 // const fs = require("fs");
-var db = require("../../model/db");
 // var users = require('../../config/config');
 
 router.get('/listUsers', function (req, res) {
-    res.send(db.createdb());
-    res.end();
+    // res.end();
 });
 
 router.get('/login', function (req, res) {
