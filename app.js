@@ -11,6 +11,7 @@ const multer = require('multer');
 const cons = require('consolidate');
 const mysql = require('mysql');
 const redis = require('redis');
+const debug = require('debug')('express');
 
 // view engine setup
 app.engine('html', cons.ejs);//哪种模版引擎
@@ -31,25 +32,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     req.users = config.users;
-    //注册mysql------start
-    var mysqlConn = mysql.createConnection(config.mysqlConf);
-    mysqlConn.connect();
-    req.clientMysql = mysqlConn;
-    //注册mysql------end
 
     //注册redis------start
     req.clientRedis = redis.createClient();
     req.clientRedis.on("error", function (error) {
         res.status(500).send(error);
     });
+    req.appPath = __dirname;
     //注册redis------end
     next();
 });
-
-var indexRouter = require('./routes/controller/index');
-var usersRouter = require('./routes/controller/users');
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/', require('./routes/controller/index'));
+app.use('/users', require('./routes/controller/users'));
 
 app.use(function (req, res, next) {
     next(createError(404));
