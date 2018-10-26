@@ -13,6 +13,10 @@ const mysql = require('mysql');
 const redis = require('redis');
 const debug = require('debug')('express');
 
+global.mass = {
+    appPath: __dirname,//项目根目录
+}
+
 // view engine setup
 app.engine('html', cons.ejs);//哪种模版引擎
 app.set('view engine', 'ejs');//输出什么东西(默认的扩展名)
@@ -30,27 +34,26 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(multer({dest: config.configPath.uploadPath}).any());
 app.use(express.static(path.join(__dirname, 'public')));
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
     req.users = config.users;
 
     //注册redis------start
     req.clientRedis = redis.createClient();
-    req.clientRedis.on("error", function (error) {
+    req.clientRedis.on("error", (error) => {
         res.status(500).send(error);
     });
-    req.appPath = __dirname;
     //注册redis------end
     next();
 });
 app.use('/', require('./routes/controller/index'));
 app.use('/users', require('./routes/controller/users'));
 
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
     next(createError(404));
 });
 
 // error handler
-app.use(function (err, req, res, next) {
+app.use((err, req, res, next) => {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};

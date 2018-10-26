@@ -1,3 +1,4 @@
+const libpath  =require('path');
 exports.users = {
     "zhangsan": "password1",
     "lisi": "password2",
@@ -20,10 +21,10 @@ exports.configPath = {
 
 exports.mysqlConf = {
     host: 'localhost',
-    user: 'root',
-    password: 'root',
+    user: 'zhangyanrong',
+    password: 'zhangyanrong',
     database: 'music',
-    port:3306,
+    port: 3306,
     // charset:'utf8', //应该设置编码（省略在某些情况下会有错误）
 
     //以下选项均为默认值（如果不需要变动可省略）
